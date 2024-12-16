@@ -1,0 +1,24 @@
+{
+    "recipes": [
+        {
+            "id": "1",
+            "title": "a title",
+            "description": "100",
+            "ingridients": "",
+            "PreperationSteps": "Steps",
+            "Tags": "Dessert",
+            "DifficultyLevel": "Easy",
+            "LastUpdated": "Automatically Fetch it"
+        },
+        {
+            "id": "2",
+            "title": "a title 2",
+            "description": "200",
+            "ingridients": "dfdfd",
+            "PreperationSteps": "Steps 2",
+            "Tags": "Salad",
+            "DifficultyLevel": "Medium",
+            "LastUpdated": "Automatically Fetch it 2"
+        }
+    ]
+}
