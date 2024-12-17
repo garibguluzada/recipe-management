@@ -1,59 +1,57 @@
 body {
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: center; /* Center content vertically */
-    align-items: center; /* Center content horizontally */
-    height: 100vh; /* Full viewport height */
-    margin: 0; /* Remove default body margin */
-    background-image: url('/Main.jpg'); /* Path to the meal-related background */
-    background-size: cover; /* Fullscreen background */
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('/Main.jpg'); /* Path to the background */
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    font-family: 'Arial', sans-serif;
 }
 
-div {
-    width: 350px;
-    height: auto;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px; /* Adds spacing between sections */
+    padding: 50px 0;
+}
+
+.top-section,
+.slider-section {
+    width: 90%;
+    max-width: 1000px; /* Restricts content width */
+    background-color: rgba(255, 255, 255, 0.85);
     border-radius: 15px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    backdrop-filter: blur(8px);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-div:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding: 30px;
 }
 
 p {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: bold;
     color: #333;
     margin: 0;
     line-height: 1.5;
 }
 
-/* Button styling */
 .button {
-    margin-top: 20px; /* Space between the card and button */
-    background-color: #ff7f50; /* Coral color */
+    margin-top: 20px;
+    background-color: #ff7f50;
     color: white;
     border: none;
-    border-radius: 8px; /* Rounded corners */
+    border-radius: 8px;
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    text-transform: uppercase;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease;
 }
 
 .button:hover {
-    background-color: #e76f43; /* Darker coral on hover */
-    transform: translateY(-2px); /* Slight lift effect */
+    background-color: #e76f43;
+}
+
+.slider-section h2 {
+    color: #333;
+    margin-bottom: 20px;
 }
