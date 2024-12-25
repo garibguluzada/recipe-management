@@ -1,9 +1,10 @@
+import { BrowserRouter } from "react-router-dom";
 import MainPage from "./components/MainPage";
-import "./MainPage.css";
 
+const Root = () => (
+  <BrowserRouter>
+    <MainPage />
+  </BrowserRouter>
+);
 
-function App() {
-  return <MainPage />;
-}
-
-export default App;
+export default Root;

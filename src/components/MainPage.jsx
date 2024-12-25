@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
+import "../MainPage.css";
 
 function MainPage() {
   const [recipes, setRecipes] = useState([]);
@@ -10,11 +11,11 @@ function MainPage() {
 
   // Fetch the recipe data from the API on mount
   useEffect(() => {
-    fetch("http://localhost:3000/recipes")
+    fetch("http://localhost:3000/recipes") // Fetch all recipes
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // Check if data is correct
-        setRecipes(data.recipes);
+        console.log("Fetched data:", data); // Check the fetched data
+        setRecipes(data); // Set the recipes array directly
         setLoading(false);
       })
       .catch((error) => {
@@ -22,6 +23,7 @@ function MainPage() {
         setLoading(false);
       });
   }, []);
+  
 
   const sliderSettings = {
     dots: true,
@@ -74,14 +76,18 @@ function MainPage() {
                     }}
                   >
                     <img
-                      src={`../../public/meal${recipe.id}.jpg`} // Make sure images exist or use a default one
+                      src={`../../public/meal${recipe.id}.jpg`} // Adjust the path to the public folder
                       alt={recipe.title}
                       style={{
                         width: "100%",
                         height: "200px",
                         objectFit: "cover",
                       }}
-                    />
+                      onError={(e) => {
+                        e.target.src = "https://via.placeholder.com/300x200?text=Image+Not+Found";
+                      }}
+                      />
+
                     <h3 style={{ margin: "10px 0", color: "#555" }}>
                       {recipe.title}
                     </h3>
