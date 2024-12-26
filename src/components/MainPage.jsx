@@ -48,7 +48,9 @@ function MainPage() {
       {/* Top Section */}
       <div className="top-section">
         <p>Welcome to World of Delicious Recipes!</p>
-        <button className="button">Recipes</button>
+        <Link to="/recipes">
+          <button className="button">Explore Recipes</button>
+        </Link>
       </div>
 
       {/* Trending Recipes Section */}
@@ -76,7 +78,7 @@ function MainPage() {
                     }}
                   >
                     <img
-                      src={`../../public/meal${recipe.id}.jpg`} // Adjust the path to the public folder
+                      src={recipe.image || "https://via.placeholder.com/300x200?text=Image+Not+Found"}
                       alt={recipe.title}
                       style={{
                         width: "100%",

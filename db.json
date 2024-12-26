@@ -1,24 +1,44 @@
 {
-    "recipes": [
-        {
-            "id": "1",
-            "title": "a title",
-            "description": "100",
-            "ingridients": "",
-            "PreperationSteps": "Steps",
-            "Tags": "Dessert",
-            "DifficultyLevel": "Easy",
-            "LastUpdated": "Automatically Fetch it"
-        },
-        {
-            "id": "2",
-            "title": "a title 2",
-            "description": "200",
-            "ingridients": "dfdfd",
-            "PreperationSteps": "Steps 2",
-            "Tags": "Salad",
-            "DifficultyLevel": "Medium",
-            "LastUpdated": "Automatically Fetch it 2"
-        }
-    ]
+  "recipes": [
+    {
+      "title": "AdadaAdada",
+      "description": "Adada",
+      "ingredients": "Adada",
+      "steps": "Adada",
+      "tags": "Adada",
+      "difficulty": "Easy",
+      "image": "Adada",
+      "id": "bbbca458-2019-4513-b397-8c6dc61976d8"
+    },
+    {
+      "id": "37c2917c-b73d-4aaf-9de6-76a04600ed11",
+      "title": "Chocolate Chip Cookies",
+      "description": "These classic chocolate chip cookies are soft, chewy, and filled with delicious chocolate chunks. A perfect treat for any occasion.",
+      "ingredients": "1 cup unsalted butter, 3/4 cup white sugar, 3/4 cup brown sugar, 2 teaspoons vanilla extract, 2 eggs, 2 1/4 cups all-purpose flour, 1 teaspoon baking soda, 1/2 teaspoon salt, 2 cups chocolate chips.",
+      "steps": "1. Preheat the oven to 350°F (175°C). Line a baking sheet with parchment paper. 2. In a large bowl, cream together the butter, white sugar, and brown sugar until light and fluffy. 3. Add the vanilla extract and eggs, one at a time, mixing well after each addition. 4. In a separate bowl, whisk together the flour, baking soda, and salt. Gradually add to the wet ingredients, mixing until just combined. 5. Fold in the chocolate chips. 6. Drop spoonfuls of dough onto the prepared baking sheet, spacing them about 2 inches apart. 7. Bake for 10-12 minutes or until golden brown. Cool on the baking sheet for a few minutes before transferring to a wire rack.",
+      "tags": "cookies, chocolate, dessert",
+      "difficulty": "Medium",
+      "image": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2022/03/09/FNK_Small-Batch-Chocolate-Chip-Cookies_H2_s4x3.jpg.rend.hgtvcom.1280.1280.suffix/1646858434609.webp"
+    },
+    {
+      "id": "db9ed844-880f-4e1c-a27d-0002114643e7",
+      "title": "Beef Stroganoff",
+      "description": "Beef Stroganoff is a classic Russian dish made with tender beef cooked in a creamy, flavorful sauce. It's a comforting meal served over egg noodles or rice, perfect for a family dinner or a special occasion. The rich, savory sauce made with sour cream, mustard, and beef broth makes it a delicious, hearty dish.",
+      "ingredients": "500g beef sirloin or tenderloin (cut into thin strips),\n1 onion (finely chopped),\n2 cloves garlic (minced),\n200g mushrooms (sliced),\n1 cup beef broth,\n1 tbsp Dijon mustard,\n1/2 cup sour cream,\n2 tbsp butter,\n1 tbsp olive oil,\nSalt (to taste),\nFreshly ground black pepper (to taste),\n2 tbsp flour (optional, for thickening),\nFresh parsley (chopped, for garnish),\n300g egg noodles or rice (for serving).",
+      "steps": "Cook the noodles: Start by cooking the egg noodles or rice according to package instructions. Drain and set aside. Brown the beef: In a large skillet, heat the olive oil and 1 tablespoon of butter over medium-high heat. Season the beef strips with salt and pepper, then brown them in batches, making sure not to overcrowd the pan. Cook for about 2-3 minutes per side until the beef is browned but not fully cooked through. Remove the beef and set aside. Sauté the onions and garlic: In the same skillet, melt the remaining butter over medium heat. Add the chopped onion and sauté for about 4 minutes until softened. Add the garlic and cook for another 1 minute until fragrant. Cook the mushrooms: Add the sliced mushrooms to the skillet and cook for about 5 minutes until they release their moisture and become golden brown. Prepare the sauce: Stir in the Dijon mustard and beef broth. Bring the mixture to a simmer and cook for 5-7 minutes, allowing the sauce to reduce slightly. If you prefer a thicker sauce, you can stir in 2 tablespoons of flour at this stage and cook for another 2 minutes. Finish the sauce: Lower the heat and stir in the sour cream. Mix well until the sauce becomes smooth and creamy. Return the beef to the skillet and cook for an additional 3-5 minutes, until the beef is cooked through and tender. Serve: Season the Stroganoff with additional salt and pepper if needed. Serve over the cooked egg noodles or rice, and garnish with freshly chopped parsley.",
+      "tags": "Beef, Stroganoff, Creamy, Comfort, Food, Russian, Hearty, Dinner",
+      "difficulty": "Hard",
+      "image": "https://www.recipetineats.com/tachyon/2018/01/Beef-Stroganoff_2-1-1.jpg?resize=900%2C1260&zoom=0.72"
+    },
+    {
+      "id": "f4f3f7e7-75d1-45e7-b14a-613e3bd27eb9",
+      "title": "Chicken Alfredo",
+      "description": "Creamy, comforting, and full of flavor, Chicken Alfredo is a rich pasta dish with tender chicken breasts, fettuccine, and a velvety Parmesan sauce. It’s the perfect meal for a cozy dinner or special occasion.",
+      "ingredients": "2 chicken breasts, boneless and skinless, 1 tablespoon olive oil, Salt and pepper to taste, 4 cloves garlic, minced, 1 cup heavy cream, 1 cup chicken broth, 1 1/2 cups grated Parmesan cheese, 12 oz fettuccine pasta, Fresh parsley (chopped, for garnish).",
+      "steps": "1. Season the chicken breasts with salt and pepper on both sides. Heat olive oil in a large skillet over medium heat. Cook the chicken for 6-7 minutes on each side, until golden brown and cooked through. Remove from the pan and set aside. 2. In the same skillet, add the minced garlic and sauté for 1-2 minutes until fragrant. 3. Pour in the heavy cream and chicken broth, stirring to combine. Bring the mixture to a simmer, and cook for 5-7 minutes, allowing it to thicken slightly. 4. Stir in the grated Parmesan cheese until smooth and creamy. Adjust seasoning with salt and pepper to taste. 5. Cook the fettuccine pasta according to the package instructions, then drain. 6. Slice the chicken breasts and add them to the sauce along with the pasta. Toss to coat everything in the creamy sauce. 7. Serve with chopped fresh parsley and extra Parmesan cheese on top.",
+      "tags": "pasta, chicken, Alfredo, creamy, dinner",
+      "difficulty": "Medium",
+      "image": "https://bellyfull.net/wp-content/uploads/2021/02/Chicken-Alfredo-blog-4-768x1024.jpg"
+    }
+  ]
 }
