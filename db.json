@@ -1,16 +1,6 @@
 {
   "recipes": [
     {
-      "title": "AdadaAdada",
-      "description": "Adada",
-      "ingredients": "Adada",
-      "steps": "Adada",
-      "tags": "Adada",
-      "difficulty": "Easy",
-      "image": "Adada",
-      "id": "bbbca458-2019-4513-b397-8c6dc61976d8"
-    },
-    {
       "id": "37c2917c-b73d-4aaf-9de6-76a04600ed11",
       "title": "Chocolate Chip Cookies",
       "description": "These classic chocolate chip cookies are soft, chewy, and filled with delicious chocolate chunks. A perfect treat for any occasion.",
@@ -39,6 +29,16 @@
       "tags": "pasta, chicken, Alfredo, creamy, dinner",
       "difficulty": "Medium",
       "image": "https://bellyfull.net/wp-content/uploads/2021/02/Chicken-Alfredo-blog-4-768x1024.jpg"
+    },
+    {
+      "id": "78a5a7e3-3cec-48ee-98a2-588c86a9d778",
+      "title": "Vegetable Stir-Fry",
+      "description": "A vibrant and healthy vegetable stir-fry packed with colorful veggies, tossed in a savory sauce, and served over steamed rice or noodles. Perfect for a quick and nutritious meal.",
+      "ingredients": "1 cup broccoli florets, 1 red bell pepper (sliced), 1 yellow bell pepper (sliced), 1 carrot (julienned), 1 cup snap peas, 2 tablespoons vegetable oil, 3 cloves garlic (minced), 1 tablespoon ginger (grated), 1/4 cup soy sauce, 2 tablespoons oyster sauce, 1 tablespoon sesame oil, 1 teaspoon cornstarch (mixed with 2 tablespoons water), Cooked rice or noodles for serving, Sesame seeds and green onions for garnish.",
+      "steps": "1. Heat the vegetable oil in a large skillet or wok over medium-high heat. 2. Add the garlic and ginger, sautéing for 1 minute until fragrant. 3. Add the broccoli, bell peppers, carrot, and snap peas to the skillet. Stir-fry for 5-7 minutes until the vegetables are tender-crisp. 4. In a small bowl, mix the soy sauce, oyster sauce, and sesame oil. Pour this mixture over the vegetables and stir well. 5. Add the cornstarch slurry and cook for another 1-2 minutes, allowing the sauce to thicken. 6. Remove from heat and serve immediately over steamed rice or noodles. 7. Garnish with sesame seeds and green onions.",
+      "tags": "vegetarian, stir-fry, healthy, quick, Asian-inspired",
+      "difficulty": "Easy",
+      "image": "https://therecipecritic.com/wp-content/uploads/2019/08/vegetable_stir_fry.jpg"
     }
   ]
 }

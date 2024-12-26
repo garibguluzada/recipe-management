@@ -9,6 +9,7 @@ function RecipesPage() {
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
+  // Fetch recipes on component mount
   useEffect(() => {
     fetch("http://localhost:3000/recipes")
       .then((res) => {
@@ -25,6 +26,7 @@ function RecipesPage() {
       .catch((err) => console.error("Failed to fetch recipes:", err));
   }, []);
 
+  // Handle create or update recipe
   const handleCreateOrUpdate = (recipe) => {
     const method = recipe.id ? "PUT" : "POST";
     const url = recipe.id
@@ -41,13 +43,18 @@ function RecipesPage() {
       body: JSON.stringify(recipe),
     })
       .then(() => {
-        fetch("http://localhost:3000/recipes")
+        // Fetch updated recipes list
+        return fetch("http://localhost:3000/recipes")
           .then((res) => res.json())
-          .then((data) => setRecipes(data));
+          .then((data) => {
+            setRecipes(data);
+            setSelectedRecipe(null); // Reset selectedRecipe after save
+          });
       })
       .catch((err) => console.error("Error saving recipe:", err));
   };
 
+  // Handle delete recipe
   const handleDelete = (id) => {
     fetch(`http://localhost:3000/recipes/${id}`, { method: "DELETE" })
       .then(() => {
