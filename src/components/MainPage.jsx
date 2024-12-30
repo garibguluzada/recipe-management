@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Ensure Link is imported
 import "../MainPage.css";
 
 function MainPage() {
@@ -24,7 +24,6 @@ function MainPage() {
       });
   }, []);
   
-
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -50,6 +49,10 @@ function MainPage() {
         <p>Welcome to World of Delicious Recipes!</p>
         <Link to="/recipes">
           <button className="button">Explore Recipes</button>
+        </Link>
+        {/* Add the link to Contact Page */}
+        <Link to="/contact">
+          <button className="button">Contact Us</button>
         </Link>
       </div>
 

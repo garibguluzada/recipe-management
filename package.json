@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "serve-json": "json-server --watch db.json"
+    "serve-json": "json-server --watch db.json",
+    "start": "concurrently \"npm run dev\" \"npm run serve-json\""
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
@@ -30,6 +31,6 @@
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.12.0",
     "json-server": "^1.0.0-beta.3",
-    "vite": "^6.0.5"
+    "vite": "^6.0.6"
   }
 }
