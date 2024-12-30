@@ -65,7 +65,9 @@ function RecipesPage() {
 
   return (
     <div>
-      <Link to="/">Back to Home</Link>
+      <Link to="/">
+      <button className="button">Back to Home</button>
+      </Link>
       <h1>Recipe Management</h1>
       <RecipeForm onSubmit={handleCreateOrUpdate} selectedRecipe={selectedRecipe} />
       <RecipeList recipes={recipes} onEdit={setSelectedRecipe} onDelete={handleDelete} />

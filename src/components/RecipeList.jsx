@@ -2,20 +2,16 @@ import React, { useState } from "react";
 import "./../RecipesPage.css";
 
 function RecipeList({ recipes, onEdit, onDelete }) {
-  // State to handle the modal visibility and selected recipe
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
-  // Function to open the modal with the clicked recipe
   const openModal = (recipe) => {
     setSelectedRecipe(recipe);
   };
 
-  // Function to close the modal
   const closeModal = () => {
     setSelectedRecipe(null);
   };
 
-  // Function to limit description length to 131 characters
   const truncateDescription = (description) => {
     return description.length > 131 ? description.slice(0, 131) + "..." : description;
   };
@@ -28,7 +24,7 @@ function RecipeList({ recipes, onEdit, onDelete }) {
           <div
             key={recipe.id}
             className="recipe-card"
-            onClick={() => openModal(recipe)} // Open the modal on click
+            onClick={() => openModal(recipe)}
           >
             <div className="recipe-card-header">
               <h2>{recipe.title}</h2>
@@ -38,8 +34,7 @@ function RecipeList({ recipes, onEdit, onDelete }) {
                   alt={recipe.title}
                   className="recipe-image"
                   onError={(e) => {
-                    e.target.src =
-                      "https://via.placeholder.com/200x200?text=No+Image";
+                    e.target.style.display = "none"; // Hide the image if it fails to load
                   }}
                 />
               )}
@@ -48,26 +43,22 @@ function RecipeList({ recipes, onEdit, onDelete }) {
               <p><strong>Description:</strong> {truncateDescription(recipe.description)}</p>
               <p><strong>Tags:</strong> {recipe.tags}</p>
               <p><strong>Difficulty:</strong> {recipe.difficulty}</p>
-
-              {/* Add space and line */}
               <div className="difficulty-line"></div>
             </div>
-
-            {/* Action buttons positioned at the bottom-left and bottom-right */}
             <div className="recipe-card-actions">
               <button
-                onClick={(e) => { 
-                  e.stopPropagation(); 
-                  onEdit(recipe); // Pass the whole recipe object to onEdit
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEdit(recipe);
                 }}
                 className="edit-button"
               >
                 Edit
               </button>
               <button
-                onClick={(e) => { 
-                  e.stopPropagation(); 
-                  onDelete(recipe.id); 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete(recipe.id);
                 }}
                 className="delete-button"
               >
@@ -78,7 +69,7 @@ function RecipeList({ recipes, onEdit, onDelete }) {
         ))}
       </div>
 
-      {/* Modal (Popup) for Detailed Recipe View */}
+      {/* Modal for Detailed Recipe View */}
       {selectedRecipe && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
