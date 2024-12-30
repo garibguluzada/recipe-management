@@ -39,6 +39,16 @@
       "tags": "vegetarian, stir-fry, healthy, quick, Asian-inspired",
       "difficulty": "Easy",
       "image": "https://therecipecritic.com/wp-content/uploads/2019/08/vegetable_stir_fry.jpg"
+    },
+    {
+      "id": "993c7b62-c132-49cf-a978-5405970da88b",
+      "title": "Russian Salad",
+      "description": "Russian Salad, also known as Olivier Salad, is a classic dish originating from Russia, popular worldwide for its creamy texture and delightful combination of vegetables, fruits, and meat. It is typically served as a side dish or appetizer, especially during festive occasions or parties.",
+      "ingredients": "2 medium-sized potatoes, boiled and diced, 2 medium-sized carrots, boiled and diced, 1 cup green peas, boiled or canned, 1 cup cucumber, finely chopped or pickled gherkins (optional), 1/2 cup apple, peeled and diced, 1/2 cup pineapple chunks (optional), 1 cup cooked chicken or diced ham (optional for vegetarians), 1/2 cup mayonnaise, 2 tablespoons fresh cream (optional for extra creaminess), Salt and black pepper to taste, 1 tablespoon mustard (optional), 1 tablespoon fresh parsley or dill, finely chopped (for garnish)",
+      "steps": "Boil the potatoes, carrots, and peas separately until tender. Let them cool. Dice the potatoes, carrots, and other vegetables into small cubes. In a large mixing bowl, combine the diced potatoes, carrots, green peas, cucumber, apple, and pineapple chunks (if using). Add the cooked chicken or ham if desired. In a small bowl, mix mayonnaise, fresh cream, salt, pepper, and mustard (if using). Pour the dressing over the salad mixture and gently toss until everything is evenly coated. Cover the salad and refrigerate for at least 30 minutes to allow the flavors to meld. Garnish with fresh parsley or dill before serving.",
+      "tags": "Russian, International, Appetizer, Side Dish, Parties, Festive, Potlucks, Vegetarian (without meat), Gluten-free",
+      "difficulty": "Easy",
+      "image": "https://soupchick.s3.amazonaws.com/wp-content/uploads/2023/12/07140219/SALAD0030_1.png"
     }
   ],
   "messages": [
@@ -47,6 +57,12 @@
       "subject": "a",
       "email": "ulkar.ahmadli@gmail.com",
       "message": "a"
+    },
+    {
+      "id": "6961",
+      "subject": "dsfsdf",
+      "email": "asdsas@mail.ru",
+      "message": "sdfsd"
     }
   ]
 }

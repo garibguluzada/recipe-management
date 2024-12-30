@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
-import "./contactpage.css"; // Import the CSS file for styling
+import "./../contactpage.css"; // Import the CSS file for styling
 
 const ContactPage = () => {
   const [subject, setSubject] = useState("");

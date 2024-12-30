@@ -74,23 +74,29 @@
 }
 
 .modal-content {
-  background-color: white;
-  padding: 30px;
-  border-radius: 10px;
+  position: relative;
+  max-height: 80vh; /* Restrict to 80% of the viewport height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 20px;
   width: 80%;
   max-width: 600px;
-  overflow-y: auto;
+  position: absolute; /* Use absolute to position inside the overlay */
+  top: 50%;
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center both horizontally and vertically */
 }
+
 
 .close-modal {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 20px;
   background: none;
   border: none;
+  font-size: 18px;
   cursor: pointer;
-  font-weight: bold;
 }
 
 /* Recipe details in modal */
@@ -100,35 +106,68 @@
   color: #555;
 }
 
-/* Actions: Edit and Delete buttons inside modal */
+
+
+
+
+
+/* Position action buttons absolutely within the card */
 .recipe-card-actions {
-  display: flex;
-  justify-content: space-between;
   position: absolute;
   bottom: 10px;
-  left: 10px;
   right: 10px;
+  display: flex;
+  gap: 10px;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.2s ease-in-out;
 }
 
+/* Show buttons on hover */
+.recipe-card:hover .recipe-card-actions {
+  opacity: 1; /* Fully visible on hover */
+}
+
+/* Button styling */
 .edit-button,
 .delete-button {
   padding: 5px 10px;
-  background-color: #4CAF50;
+  font-size: 14px;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
 }
 
+.edit-button {
+  background-color: #4CAF50; /* Green for edit */
+}
+
+.delete-button {
+  background-color: #dc3545; /* Red for delete */
+}
+
+/* Add hover effects for buttons */
 .edit-button:hover {
   background-color: #45a049;
 }
 
-.delete-button {
-  background-color: #f44336;
+.delete-button:hover {
+  background-color: #c82333;
 }
 
-.delete-button:hover {
-  background-color: #e53935;
+.button {
+  margin-top: 20px;
+  background-color: #ff7f50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #e76f43;
 }
