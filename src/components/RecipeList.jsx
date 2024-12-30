@@ -1,19 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./../RecipesPage.css";
 
 function RecipeList({ recipes, onEdit, onDelete }) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+
+  // Open modal automatically if URL contains recipe ID
+  useEffect(() => {
+    const recipeIdFromURL = location.pathname.split("/recipes/")[1];
+    if (recipeIdFromURL && recipes.length > 0) {
+      const matchedRecipe = recipes.find((recipe) => recipe.id === recipeIdFromURL);
+      if (matchedRecipe) {
+        setSelectedRecipe(matchedRecipe);
+      }
+    }
+  }, [location.pathname, recipes]);
 
   const openModal = (recipe) => {
     setSelectedRecipe(recipe);
+    navigate(`/recipes/${recipe.id}`); // Update the URL with the recipe ID
   };
 
   const closeModal = () => {
     setSelectedRecipe(null);
+    navigate("/recipes"); // Reset URL when closing modal
   };
 
   const truncateDescription = (description) => {
     return description.length > 131 ? description.slice(0, 131) + "..." : description;
+  };
+
+  const formatDate = (date) => {
+    return new Date(date).toLocaleString(); // This will return both date and time in a readable format
   };
 
   return (
@@ -43,6 +63,8 @@ function RecipeList({ recipes, onEdit, onDelete }) {
               <p><strong>Description:</strong> {truncateDescription(recipe.description)}</p>
               <p><strong>Tags:</strong> {recipe.tags}</p>
               <p><strong>Difficulty:</strong> {recipe.difficulty}</p>
+              <p><strong>Date Added:</strong> {formatDate(recipe.dateAdded)}</p>
+              <p><strong>Date Modified:</strong> {formatDate(recipe.dateModified)}</p>
               <div className="difficulty-line"></div>
             </div>
             <div className="recipe-card-actions">
@@ -68,7 +90,7 @@ function RecipeList({ recipes, onEdit, onDelete }) {
           </div>
         ))}
       </div>
-
+        
       {/* Modal for Detailed Recipe View */}
       {selectedRecipe && (
         <div className="modal-overlay" onClick={closeModal}>
@@ -79,7 +101,7 @@ function RecipeList({ recipes, onEdit, onDelete }) {
             <p><strong>Ingredients:</strong> {selectedRecipe.ingredients}</p>
             <p><strong>Steps:</strong> {selectedRecipe.steps}</p>
             <p><strong>Tags:</strong> {selectedRecipe.tags}</p>
-            <p><strong>Difficulty:</strong> {selectedRecipe.difficulty}</p>
+            <p><strong>Difficulty:</strong> {selectedRecipe.difficulty}</p>  
           </div>
         </div>
       )}

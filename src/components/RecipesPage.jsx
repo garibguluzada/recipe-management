@@ -1,32 +1,24 @@
 import React, { useState, useEffect } from "react";
-import RecipeList from "./RecipeList";
+import { useParams, Link } from "react-router-dom";
 import RecipeForm from "./RecipeForm";
-import { Link } from "react-router-dom";
+import RecipeList from "./RecipeList";
 import "./../RecipesPage.css";
-import { v4 as uuidv4 } from "uuid"; // Install uuid: npm install uuid
+import { v4 as uuidv4 } from "uuid";
 
 function RecipesPage() {
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const { id } = useParams(); // Extract the id from the URL
 
-  // Fetch recipes on component mount
   useEffect(() => {
     fetch("http://localhost:3000/recipes")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch recipes");
-        }
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data)) {
-          setRecipes(data); // Ensure data is an array before setting state
-        }
+        setRecipes(data);
       })
       .catch((err) => console.error("Failed to fetch recipes:", err));
   }, []);
 
-  // Handle create or update recipe
   const handleCreateOrUpdate = (recipe) => {
     const method = recipe.id ? "PUT" : "POST";
     const url = recipe.id
@@ -35,6 +27,11 @@ function RecipesPage() {
 
     if (!recipe.id) {
       recipe.id = uuidv4(); // Generate a unique ID if it's a new recipe
+      const currentDate = new Date().toISOString();
+      recipe.dateAdded = currentDate; // Set dateAdded for new recipe
+      recipe.dateModified = currentDate; // Set dateModified for new recipe
+    } else {
+      recipe.dateModified = new Date().toISOString(); // Update dateModified for existing recipe
     }
 
     fetch(url, {
@@ -43,7 +40,6 @@ function RecipesPage() {
       body: JSON.stringify(recipe),
     })
       .then(() => {
-        // Fetch updated recipes list
         return fetch("http://localhost:3000/recipes")
           .then((res) => res.json())
           .then((data) => {
@@ -54,7 +50,6 @@ function RecipesPage() {
       .catch((err) => console.error("Error saving recipe:", err));
   };
 
-  // Handle delete recipe
   const handleDelete = (id) => {
     fetch(`http://localhost:3000/recipes/${id}`, { method: "DELETE" })
       .then(() => {
@@ -66,11 +61,15 @@ function RecipesPage() {
   return (
     <div>
       <Link to="/">
-      <button className="button">Back to Home</button>
+        <button className="button">Back to Home</button>
       </Link>
       <h1>Recipe Management</h1>
       <RecipeForm onSubmit={handleCreateOrUpdate} selectedRecipe={selectedRecipe} />
-      <RecipeList recipes={recipes} onEdit={setSelectedRecipe} onDelete={handleDelete} />
+      <RecipeList
+        recipes={recipes}
+        onEdit={setSelectedRecipe}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }
