@@ -28,23 +28,26 @@ function RecipeManager() {
 
   const handleSave = (event) => {
     event.preventDefault();
-
+    
+    const currentDate = new Date().toISOString();
+  
     if (selectedRecipe) {
-      // If a recipe is selected, update it
+      // Update existing recipe, setting the dateModified field
       setRecipes(
         recipes.map((recipe) =>
-          recipe.id === selectedRecipe.id ? { ...recipe, ...formData } : recipe
+          recipe.id === selectedRecipe.id
+            ? { ...recipe, ...formData, dateModified: currentDate }
+            : recipe
         )
       );
     } else {
-      // If no recipe is selected, create a new one
+      // Create a new recipe, setting both dateAdded and dateModified fields
       setRecipes([
         ...recipes,
-        { id: Date.now().toString(), ...formData }, // Generate a new id using timestamp
+        { id: Date.now().toString(), ...formData, dateAdded: currentDate, dateModified: currentDate }
       ]);
     }
-
-    // Reset the form
+  
     setFormData({
       id: "",
       title: "",
@@ -55,8 +58,9 @@ function RecipeManager() {
       difficulty: "",
       image: "",
     });
-    setSelectedRecipe(null); // Reset selected recipe after save
+    setSelectedRecipe(null);
   };
+  
 
   const handleChange = (event) => {
     const { name, value } = event.target;

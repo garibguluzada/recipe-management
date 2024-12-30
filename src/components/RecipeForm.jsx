@@ -23,7 +23,16 @@ function RecipeForm({ onSubmit, selectedRecipe }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ ...formState, id: selectedRecipe?.id });
+    const currentDate = new Date().toISOString();
+    
+    // If the recipe is new, set `dateAdded` and `dateModified`, else just update `dateModified`
+    const recipeToSubmit = {
+      ...formState,
+      dateModified: currentDate, // always set the `dateModified` field
+      dateAdded: selectedRecipe ? formState.dateAdded : currentDate, // only set `dateAdded` if it's a new recipe
+    };
+    
+    onSubmit(recipeToSubmit);
     setFormState({
       title: "",
       description: "",
@@ -31,9 +40,10 @@ function RecipeForm({ onSubmit, selectedRecipe }) {
       steps: "",
       tags: "",
       difficulty: "Easy",
-      image: "" // Reset image field
+      image: "",
     });
-  };
+};
+
 
   return (
     <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>

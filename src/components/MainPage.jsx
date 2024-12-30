@@ -2,20 +2,24 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Link } from "react-router-dom"; // Ensure Link is imported
+import { useNavigate } from "react-router-dom"; // Use navigate for custom routing
 import "../MainPage.css";
 
 function MainPage() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // Fetch the recipe data from the API on mount
   useEffect(() => {
-    fetch("http://localhost:3000/recipes") // Fetch all recipes
+    fetch("http://localhost:3000/recipes")
       .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched data:", data); // Check the fetched data
-        setRecipes(data); // Set the recipes array directly
+        // Sort recipes by dateModified (most recent first)
+        const sortedRecipes = data.sort(
+          (a, b) => new Date(b.dateModified) - new Date(a.dateModified)
+        );
+        // Take only the 4 most recent recipes
+        setRecipes(sortedRecipes.slice(0, 4));
         setLoading(false);
       })
       .catch((error) => {
@@ -23,7 +27,11 @@ function MainPage() {
         setLoading(false);
       });
   }, []);
-  
+
+  const openRecipe = (id) => {
+    navigate(`/recipes/${id}`, { state: { fromMainPage: true } }); // Navigate to the recipe page with a flag
+  };
+
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -44,65 +52,48 @@ function MainPage() {
 
   return (
     <div className="main-container">
-      {/* Top Section */}
       <div className="top-section">
         <p>Welcome to World of Delicious Recipes!</p>
-        <Link to="/recipes">
-          <button className="button">Explore Recipes</button>
-        </Link>
-        {/* Add the link to Contact Page */}
-        <Link to="/contact">
-          <button className="button">Contact Us</button>
-        </Link>
+        <button className="button" onClick={() => navigate("/recipes")}>
+          Explore Recipes
+        </button>
+        <button className="button" onClick={() => navigate("/contact")}>
+          Contact Us
+        </button>
       </div>
 
-      {/* Trending Recipes Section */}
       <div className="slider-section">
-        <h2>Trending Recipes</h2>
+        <h2>Featured Recipes</h2>
         <Slider {...sliderSettings}>
-          {recipes.length > 0 ? (
-            recipes.map((recipe) => (
-              <div key={recipe.id} style={{ padding: "10px" }}>
-                <Link
-                  to={`/recipes/${recipe.id}`}
+          {recipes.map((recipe) => (
+            <div key={recipe.id} style={{ padding: "10px" }}>
+              <div
+                onClick={() => openRecipe(recipe.id)}
+                style={{
+                  backgroundColor: "#fff",
+                  borderRadius: "10px",
+                  boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+                  overflow: "hidden",
+                  textAlign: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <img
+                  src={recipe.image || "https://via.placeholder.com/300x200?text=Image+Not+Found"}
+                  alt={recipe.title}
                   style={{
-                    textDecoration: "none",
-                    color: "inherit",
-                    display: "block",
+                    width: "100%",
+                    height: "200px",
+                    objectFit: "cover",
                   }}
-                >
-                  <div
-                    style={{
-                      backgroundColor: "#fff",
-                      borderRadius: "10px",
-                      boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-                      overflow: "hidden",
-                      textAlign: "center",
-                    }}
-                  >
-                    <img
-                      src={recipe.image || "https://via.placeholder.com/300x200?text=Image+Not+Found"}
-                      alt={recipe.title}
-                      style={{
-                        width: "100%",
-                        height: "200px",
-                        objectFit: "cover",
-                      }}
-                      onError={(e) => {
-                        e.target.src = "https://via.placeholder.com/300x200?text=Image+Not+Found";
-                      }}
-                      />
-
-                    <h3 style={{ margin: "10px 0", color: "#555" }}>
-                      {recipe.title}
-                    </h3>
-                  </div>
-                </Link>
+                  onError={(e) => {
+                    e.target.src = "https://via.placeholder.com/300x200?text=Image+Not+Found";
+                  }}
+                />
+                <h3 style={{ margin: "10px 0", color: "#555" }}>{recipe.title}</h3>
               </div>
-            ))
-          ) : (
-            <p>No recipes available.</p>
-          )}
+            </div>
+          ))}
         </Slider>
       </div>
     </div>
