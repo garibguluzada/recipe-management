@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import RecipeForm from "./RecipeForm";
 import RecipeList from "./RecipeList";
 import "./../RecipesPage.css";
@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 function RecipesPage() {
   const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const { id } = useParams(); // Extract the id from the URL
 
   useEffect(() => {
     fetch("http://localhost:3000/recipes")
@@ -26,12 +25,12 @@ function RecipesPage() {
       : "http://localhost:3000/recipes";
 
     if (!recipe.id) {
-      recipe.id = uuidv4(); // Generate a unique ID if it's a new recipe
+      recipe.id = uuidv4();
       const currentDate = new Date().toISOString();
-      recipe.dateAdded = currentDate; // Set dateAdded for new recipe
-      recipe.dateModified = currentDate; // Set dateModified for new recipe
+      recipe.dateAdded = currentDate;
+      recipe.dateModified = currentDate;
     } else {
-      recipe.dateModified = new Date().toISOString(); // Update dateModified for existing recipe
+      recipe.dateModified = new Date().toISOString();
     }
 
     fetch(url, {
@@ -39,13 +38,16 @@ function RecipesPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(recipe),
     })
-      .then(() => {
-        return fetch("http://localhost:3000/recipes")
-          .then((res) => res.json())
-          .then((data) => {
-            setRecipes(data);
-            setSelectedRecipe(null); // Reset selectedRecipe after save
-          });
+      .then((res) => res.json())
+      .then((data) => {
+        if (method === "POST") {
+          setRecipes((prevRecipes) => [...prevRecipes, data]);
+        } else {
+          setRecipes((prevRecipes) =>
+            prevRecipes.map((r) => (r.id === data.id ? data : r))
+          );
+        }
+        setSelectedRecipe(null);
       })
       .catch((err) => console.error("Error saving recipe:", err));
   };
@@ -53,7 +55,7 @@ function RecipesPage() {
   const handleDelete = (id) => {
     fetch(`http://localhost:3000/recipes/${id}`, { method: "DELETE" })
       .then(() => {
-        setRecipes(recipes.filter((recipe) => recipe.id !== id));
+        setRecipes((prevRecipes) => prevRecipes.filter((recipe) => recipe.id !== id));
       })
       .catch((err) => console.error("Error deleting recipe:", err));
   };
@@ -63,7 +65,6 @@ function RecipesPage() {
       <Link to="/">
         <button className="button">Back to Home</button>
       </Link>
-      <h1>Recipe Management</h1>
       <RecipeForm onSubmit={handleCreateOrUpdate} selectedRecipe={selectedRecipe} />
       <RecipeList
         recipes={recipes}
