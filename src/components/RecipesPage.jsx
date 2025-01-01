@@ -44,9 +44,9 @@ function RecipesPage() {
     let filtered = data;
 
     // Apply Tag Filter
-    if (selectedTag) {
-      filtered = filtered.filter((recipe) =>
-        recipe.tags.includes(selectedTag)
+    if (selectedTag && selectedTag !== "") {
+      filtered = filtered.filter(
+        (recipe) => recipe.tags.split(", ").includes(selectedTag) // Split tags and match
       );
     }
 
@@ -68,7 +68,7 @@ function RecipesPage() {
           case "updateTime":
             return new Date(a.dateModified) - new Date(b.dateModified);
           case "tags":
-            return a.tags.length - b.tags.length; // Sort by tag count
+            return a.tags.split(", ").length - b.tags.split(", ").length; // Sort by tag count
           case "difficulty":
             const difficulties = { Easy: 1, Medium: 2, Hard: 3 };
             return difficulties[a.difficulty] - difficulties[b.difficulty];
@@ -83,8 +83,14 @@ function RecipesPage() {
 
   // Handle Filter Changes
   const handleTagChange = (e) => {
-    setSelectedTag(e.target.value);
-    filterAndSortRecipes(); // Reapply filters and sorting
+    const tag = e.target.value;
+    setSelectedTag(tag);
+    if (tag === "") {
+      // Reset the tag filter when 'All Tags' is selected
+      filterAndSortRecipes();
+    } else {
+      filterAndSortRecipes(); // Reapply filters with selected tag
+    }
   };
 
   const handleDifficultyChange = (e) => {
@@ -149,6 +155,15 @@ function RecipesPage() {
       .catch((err) => console.error("Error deleting recipe:", err));
   };
 
+  // Extract unique tags for the dropdown
+  const uniqueTags = [
+    ...new Set(
+      recipes.flatMap((recipe) =>
+        recipe.tags.split(", ").map((tag) => tag.trim())
+      )
+    ),
+  ];
+
   return (
     <div>
       <Link to="/">
@@ -177,9 +192,11 @@ function RecipesPage() {
           onChange={handleTagChange}
         >
           <option value="">All Tags</option>
-          <option value="Dessert">Dessert</option>
-          <option value="Vegetarian">Vegetarian</option>
-          <option value="Quick Meal">Quick Meal</option>
+          {uniqueTags.map((tag) => (
+            <option key={tag} value={tag}>
+              {tag}
+            </option>
+          ))}
         </select>
 
         <select
@@ -208,7 +225,10 @@ function RecipesPage() {
         </select>
       </div>
 
-      <RecipeForm onSubmit={handleCreateOrUpdate} selectedRecipe={selectedRecipe} />
+      <RecipeForm
+        onSubmit={handleCreateOrUpdate}
+        selectedRecipe={selectedRecipe}
+      />
       <RecipeList
         recipes={filteredRecipes} // Pass filtered recipes here
         onEdit={setSelectedRecipe}

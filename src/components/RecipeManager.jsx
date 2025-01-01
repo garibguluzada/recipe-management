@@ -1,9 +1,6 @@
-import React, { useState } from "react";
-import RecipeList from "./RecipeList";
-
 function RecipeManager() {
   const [recipes, setRecipes] = useState([]);
-  const [selectedRecipe, setSelectedRecipe] = useState(null); // To handle the selected recipe for editing
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [formData, setFormData] = useState({
     id: "",
     title: "",
@@ -14,25 +11,27 @@ function RecipeManager() {
     difficulty: "",
     image: "",
   });
+  const [selectedTag, setSelectedTag] = useState(""); // State for selected tag
+
+  const handleTagChange = (e) => {
+    setSelectedTag(e.target.value);
+  };
 
   const handleEdit = (recipe) => {
-    // Set the form data to the recipe details to edit it
     setSelectedRecipe(recipe);
     setFormData({ ...recipe });
   };
 
   const handleDelete = (id) => {
-    // Delete the recipe by id
     setRecipes(recipes.filter((recipe) => recipe.id !== id));
   };
 
   const handleSave = (event) => {
     event.preventDefault();
-    
+
     const currentDate = new Date().toISOString();
-  
+
     if (selectedRecipe) {
-      // Update existing recipe, setting the dateModified field
       setRecipes(
         recipes.map((recipe) =>
           recipe.id === selectedRecipe.id
@@ -41,13 +40,12 @@ function RecipeManager() {
         )
       );
     } else {
-      // Create a new recipe, setting both dateAdded and dateModified fields
       setRecipes([
         ...recipes,
         { id: Date.now().toString(), ...formData, dateAdded: currentDate, dateModified: currentDate }
       ]);
     }
-  
+
     setFormData({
       id: "",
       title: "",
@@ -60,7 +58,12 @@ function RecipeManager() {
     });
     setSelectedRecipe(null);
   };
-  
+
+  const filteredRecipes = selectedTag
+    ? recipes.filter((recipe) =>
+        recipe.tags.toLowerCase().includes(selectedTag.toLowerCase())
+      )
+    : recipes;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -112,14 +115,22 @@ function RecipeManager() {
         <button type="submit">{selectedRecipe ? "Update Recipe" : "Create Recipe"}</button>
       </form>
 
+      {/* Select tag for filtering */}
+      <select onChange={handleTagChange} value={selectedTag}>
+        <option value="">All Tags</option>
+        {/* Dynamically create options for tags if needed */}
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+
       <RecipeList
-        recipes={recipes}
+        recipes={recipes} // Use the filtered recipes here
         onEdit={handleEdit}
         onDelete={handleDelete}
         onSave={handleSave}
+        selectedTag={selectedTag}
       />
     </div>
   );
 }
-
-export default RecipeManager;

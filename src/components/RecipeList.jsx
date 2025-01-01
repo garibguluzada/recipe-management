@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./../RecipesPage.css";
 
-function RecipeList({ recipes, onEdit, onDelete }) {
+function RecipeList({ recipes, onEdit, onDelete, selectedTag }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -11,7 +11,9 @@ function RecipeList({ recipes, onEdit, onDelete }) {
   useEffect(() => {
     const recipeIdFromURL = location.pathname.split("/recipes/")[1];
     if (recipeIdFromURL && recipes.length > 0) {
-      const matchedRecipe = recipes.find((recipe) => recipe.id === recipeIdFromURL);
+      const matchedRecipe = recipes.find(
+        (recipe) => recipe.id === recipeIdFromURL
+      );
       if (matchedRecipe) {
         setSelectedRecipe(matchedRecipe);
       }
@@ -29,18 +31,27 @@ function RecipeList({ recipes, onEdit, onDelete }) {
   };
 
   const truncateDescription = (description) => {
-    return description.length > 131 ? description.slice(0, 131) + "..." : description;
+    return description.length > 131
+      ? description.slice(0, 131) + "..."
+      : description;
   };
 
   const formatDate = (date) => {
     return new Date(date).toLocaleString(); // This will return both date and time in a readable format
   };
 
+  // Filter recipes based on the selected tag
+  const filteredRecipes = selectedTag
+    ? recipes.filter((recipe) =>
+        recipe.tags.toLowerCase().includes(selectedTag.toLowerCase())
+      )
+    : recipes; // If no tag is selected or "" (All Tags), show all recipes
+
   return (
     <div>
       {/* Recipe Cards */}
       <div className="recipe-cards-container">
-        {recipes.map((recipe) => (
+        {filteredRecipes.map((recipe) => (
           <div
             key={recipe.id}
             className="recipe-card"
@@ -60,11 +71,23 @@ function RecipeList({ recipes, onEdit, onDelete }) {
               )}
             </div>
             <div className="recipe-card-body">
-              <p><strong>Description:</strong> {truncateDescription(recipe.description)}</p>
-              <p><strong>Tags:</strong> {recipe.tags}</p>
-              <p><strong>Difficulty:</strong> {recipe.difficulty}</p>
-              <p><strong>Date Added:</strong> {formatDate(recipe.dateAdded)}</p>
-              <p><strong>Date Modified:</strong> {formatDate(recipe.dateModified)}</p>
+              <p>
+                <strong>Description:</strong>{" "}
+                {truncateDescription(recipe.description)}
+              </p>
+              <p>
+                <strong>Tags:</strong> {recipe.tags}
+              </p>
+              <p>
+                <strong>Difficulty:</strong> {recipe.difficulty}
+              </p>
+              <p>
+                <strong>Date Added:</strong> {formatDate(recipe.dateAdded)}
+              </p>
+              <p>
+                <strong>Date Modified:</strong>{" "}
+                {formatDate(recipe.dateModified)}
+              </p>
               <div className="difficulty-line"></div>
             </div>
             <div className="recipe-card-actions">
@@ -90,18 +113,40 @@ function RecipeList({ recipes, onEdit, onDelete }) {
           </div>
         ))}
       </div>
-        
+
       {/* Modal for Detailed Recipe View */}
       {selectedRecipe && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-modal" onClick={closeModal}>X</button>
+            <button className="close-modal" onClick={closeModal}>
+              X
+            </button>
             <h2>{selectedRecipe.title}</h2>
-            <p><strong>Description:</strong> {selectedRecipe.description}</p>
-            <p><strong>Ingredients:</strong> {selectedRecipe.ingredients}</p>
-            <p><strong>Steps:</strong> {selectedRecipe.steps}</p>
-            <p><strong>Tags:</strong> {selectedRecipe.tags}</p>
-            <p><strong>Difficulty:</strong> {selectedRecipe.difficulty}</p>  
+            <p>
+              <strong>Description:</strong> {selectedRecipe.description}
+            </p>
+            <p>
+              <strong>Ingredients:</strong>
+            </p>
+            <ul>
+              {selectedRecipe.ingredients.map((ingredient) => (
+                <li key={ingredient.id}>{ingredient.name}</li>
+              ))}
+            </ul>
+            <p>
+              <strong>Steps:</strong>
+            </p>
+            <ol>
+              {selectedRecipe.steps.map((step) => (
+                <li key={step.id}>{step.description}</li>
+              ))}
+            </ol>
+            <p>
+              <strong>Tags:</strong> {selectedRecipe.tags}
+            </p>
+            <p>
+              <strong>Difficulty:</strong> {selectedRecipe.difficulty}
+            </p>
           </div>
         </div>
       )}
