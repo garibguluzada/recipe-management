@@ -50,6 +50,29 @@ function MainPage() {
     return <div>Loading...</div>;
   }
 
+  const projects = [
+    {
+      name: "Chrome Extension",
+      description: "Created Chrome extension as a team",
+      link: "https://github.com/IsmayilovRufat/as1-chrome-extension.git",
+    },
+    {
+      name: "Project 2",
+      description: "Description 2",
+      link: "",
+    },
+    {
+      name: "Project 3",
+      description: "Description 3",
+      link: "",
+    },
+    {
+      name: "Project 4",
+      description: "Description 4",
+      link: "",
+    },
+  ];
+
   return (
     <div className="main-container">
       <div className="top-section">
@@ -79,7 +102,10 @@ function MainPage() {
                 }}
               >
                 <img
-                  src={recipe.image || "https://via.placeholder.com/300x200?text=Image+Not+Found"}
+                  src={
+                    recipe.image ||
+                    "https://via.placeholder.com/300x200?text=Image+Not+Found"
+                  }
                   alt={recipe.title}
                   style={{
                     width: "100%",
@@ -95,6 +121,21 @@ function MainPage() {
             </div>
           ))}
         </Slider>
+      </div>
+
+      <div className="projects-section">
+        <h2>Projects from Web and Mobile 1 Course</h2>
+        <div className="project-list">
+          {projects.map((project, index) => (
+            <div key={index} className="project-card">
+              <h3>{project.name}</h3>
+              <p>{project.description}</p>
+              <a href={project.link} target="_blank" rel="noopener noreferrer">
+                View Project
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
