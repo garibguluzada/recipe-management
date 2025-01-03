@@ -4,6 +4,8 @@ import RecipeForm from "./RecipeForm";
 import RecipeList from "./RecipeList";
 import "./../RecipesPage.css";
 import { v4 as uuidv4 } from "uuid";
+import Pagination from "./Pagination"; // Import a Pagination component
+
 
 function RecipesPage() {
   const [recipes, setRecipes] = useState([]);
@@ -13,6 +15,9 @@ function RecipesPage() {
   const [selectedDifficulty, setSelectedDifficulty] = useState(""); // State for selected difficulty
   const [sortOption, setSortOption] = useState(""); // State for sort option
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const recipesPerPage = 8;
+  
 
   // Fetch recipes
   useEffect(() => {
@@ -180,6 +185,16 @@ function RecipesPage() {
     setFilteredRecipes(filtered);
   };
 
+
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  const currentRecipes = filteredRecipes.slice(
+    indexOfFirstRecipe,
+    indexOfLastRecipe
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div>
       <Link to="/">
@@ -242,10 +257,15 @@ function RecipesPage() {
         selectedRecipe={selectedRecipe}
       />
       <RecipeList
-        recipes={filteredRecipes} // Pass filtered recipes here
+        recipes={currentRecipes} // Pass filtered recipes here
         onEdit={setSelectedRecipe}
         onDelete={handleDelete}
         onShare={handleShare} // Pass the share function
+      />
+      <Pagination
+        recipesPerPage={recipesPerPage}
+        totalRecipes={filteredRecipes.length}
+        paginate={paginate}
       />
     </div>
   );

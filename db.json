@@ -499,6 +499,248 @@
       "image": "https://cookieandkate.com/images/2020/08/best-mojito-recipe-2.jpg",
       "dateAdded": "2025-01-01T17:28:53.651Z",
       "dateModified": "2025-01-01T17:28:53.651Z"
+    },
+    {
+      "id": "f806760c-02ab-49b7-9b3a-60f1b18731a9",
+      "title": "Tiramisu",
+      "description": "Tiramisu is a timeless Italian dessert made with layers of coffee-soaked ladyfingers and a creamy mascarpone mixture. It's a perfect no-bake dessert that combines rich coffee flavor with a touch of sweetness.",
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "1 cup (240ml) strong brewed coffee, cooled"
+        },
+        {
+          "id": 2,
+          "name": "2 tbsp coffee liqueur (optional)"
+        },
+        {
+          "id": 3,
+          "name": "1 cup (240ml) heavy cream, cold"
+        },
+        {
+          "id": 4,
+          "name": "3 large egg yolks"
+        },
+        {
+          "id": 5,
+          "name": "1/2 cup (100g) granulated sugar"
+        },
+        {
+          "id": 6,
+          "name": "1 tsp pure vanilla extract"
+        },
+        {
+          "id": 7,
+          "name": "8 oz (227g) mascarpone cheese, softened"
+        },
+        {
+          "id": 8,
+          "name": "18-20 ladyfinger biscuits (savoiardi)"
+        },
+        {
+          "id": 9,
+          "name": "Unsweetened cocoa powder (for dusting)"
+        }
+      ],
+      "steps": [
+        {
+          "id": 1,
+          "description": "Brew strong coffee and let it cool. Add coffee liqueur if desired."
+        },
+        {
+          "id": 2,
+          "description": "In a medium bowl, whisk the egg yolks and sugar until pale and creamy."
+        },
+        {
+          "id": 3,
+          "description": "Place the bowl over a pot of simmering water (double boiler) and whisk continuously for about 5 minutes until thickened. Remove from heat."
+        },
+        {
+          "id": 4,
+          "description": "Let the mixture cool slightly, then stir in mascarpone cheese until smooth."
+        },
+        {
+          "id": 5,
+          "description": "In a separate bowl, whip the heavy cream and vanilla extract until stiff peaks form. Gently fold the whipped cream into the mascarpone mixture."
+        },
+        {
+          "id": 6,
+          "description": "Dip each ladyfinger into the coffee soak for 1-2 seconds and layer them in the bottom of a rectangular dish (8x8 inches)."
+        },
+        {
+          "id": 7,
+          "description": "Spread half of the mascarpone filling over the ladyfingers evenly."
+        },
+        {
+          "id": 8,
+          "description": "Add another layer of coffee-soaked ladyfingers."
+        },
+        {
+          "id": 9,
+          "description": "Spread the remaining mascarpone filling on top."
+        },
+        {
+          "id": 10,
+          "description": "Cover the dish with plastic wrap and refrigerate for at least 6 hours (preferably overnight) to allow flavors to meld."
+        },
+        {
+          "id": 11,
+          "description": "Before serving, dust the top with cocoa powder using a fine mesh sieve."
+        }
+      ],
+      "tags": "Dessert, No-Bake, Italian, Coffee-Flavored, Party-Friendly",
+      "difficulty": "Medium",
+      "image": "https://images.squarespace-cdn.com/content/v1/5f628b2fb3989f13bc6748a9/0ea44bee-29db-43a9-9856-ee52acf6179f/Classic+Tiramisu+PIN+1.jpg",
+      "dateAdded": "2025-01-03T21:12:20.073Z",
+      "dateModified": "2025-01-03T21:14:31.984Z"
+    },
+    {
+      "id": "922210d8-8abb-43bf-a9b2-2643dad30f9e",
+      "title": "Negroni Cocktail",
+      "description": "The Negroni is a classic Italian cocktail known for its perfect balance of bitterness and sweetness. Made with equal parts gin, Campari, and sweet vermouth, it's a simple yet sophisticated drink, ideal as an aperitif or for any cocktail enthusiast.",
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "1 oz (30ml) gin"
+        },
+        {
+          "id": 2,
+          "name": "1 oz (30ml) Campari"
+        },
+        {
+          "id": 3,
+          "name": "1 oz (30ml) sweet vermouth"
+        },
+        {
+          "id": 4,
+          "name": "Ice cubes"
+        },
+        {
+          "id": 5,
+          "name": "Orange peel (for garnish)"
+        }
+      ],
+      "steps": [
+        {
+          "id": 1,
+          "description": "Fill a rocks glass with ice cubes to chill it."
+        },
+        {
+          "id": 2,
+          "description": "In a mixing glass filled with ice, combine the gin, Campari, and sweet vermouth."
+        },
+        {
+          "id": 3,
+          "description": "Stir gently for about 20 seconds until well-chilled."
+        },
+        {
+          "id": 4,
+          "description": "Discard the ice from the chilled rocks glass and strain the mixed cocktail into it over fresh ice cubes."
+        },
+        {
+          "id": 5,
+          "description": "Twist an orange peel over the glass to release its oils, then drop it into the drink as a garnish."
+        }
+      ],
+      "tags": "Cocktail, Aperitif, Italian, Bitter-Sweet, Easy",
+      "difficulty": "Easy",
+      "image": "https://cdn.shopify.com/s/files/1/2464/4501/files/Negroni_Cocktail_480x480.png?v=1719222013",
+      "dateAdded": "2025-01-03T21:14:07.241Z",
+      "dateModified": "2025-01-03T21:14:07.241Z"
+    },
+    {
+      "id": "dd9ad5d8-62fb-4dfd-9524-ec550902b687",
+      "title": "Hot Mulled Wine",
+      "description": "Hot mulled wine is a cozy and aromatic drink, perfect for chilly evenings or festive gatherings. This classic recipe combines red wine with warming spices, citrus, and a touch of sweetness, creating a comforting beverage that embodies the holiday spirit.",
+      "ingredients": [
+        {
+          "id": 1,
+          "name": "1 bottle (750ml) dry red wine (Merlot, Cabernet Sauvignon, or Zinfandel work well)"
+        },
+        {
+          "id": 2,
+          "name": "1/4 cup (60ml) brandy (optional)"
+        },
+        {
+          "id": 3,
+          "name": "1/4 cup (50g) brown sugar or honey (adjust to taste)"
+        },
+        {
+          "id": 4,
+          "name": "1 orange, sliced"
+        },
+        {
+          "id": 5,
+          "name": "1 lemon, sliced (optional)"
+        },
+        {
+          "id": 6,
+          "name": "4-6 whole cloves"
+        },
+        {
+          "id": 7,
+          "name": "2-3 cinnamon sticks"
+        },
+        {
+          "id": 8,
+          "name": "2-3 star anise"
+        },
+        {
+          "id": 9,
+          "name": "1/4 tsp freshly grated nutmeg"
+        },
+        {
+          "id": 10,
+          "name": "1-2 bay leaves (optional)"
+        },
+        {
+          "id": 11,
+          "name": "Fresh rosemary or orange slices (for garnish)"
+        }
+      ],
+      "steps": [
+        {
+          "id": 1,
+          "description": "Slice the orange and lemon, and set aside."
+        },
+        {
+          "id": 2,
+          "description": "Gather the spices: cloves, cinnamon sticks, star anise, and nutmeg."
+        },
+        {
+          "id": 3,
+          "description": "In a large saucepan, combine the red wine, orange slices, lemon slices (if using), and spices."
+        },
+        {
+          "id": 4,
+          "description": "Add the brown sugar or honey and stir to dissolve."
+        },
+        {
+          "id": 5,
+          "description": "Place the saucepan over low heat and gently heat the wine until it’s warm (do not let it boil)."
+        },
+        {
+          "id": 6,
+          "description": "Reduce the heat to the lowest setting and let the mixture simmer gently for 15-20 minutes to infuse the flavors."
+        },
+        {
+          "id": 7,
+          "description": "Stir in the brandy for an extra kick just before serving."
+        },
+        {
+          "id": 8,
+          "description": "Strain the mulled wine into mugs or heatproof glasses."
+        },
+        {
+          "id": 9,
+          "description": "Garnish with a sprig of rosemary or a slice of orange."
+        }
+      ],
+      "tags": "Beverage, Holiday, Drink, Warm, Spiced, Cozy",
+      "difficulty": "Easy",
+      "image": "https://cookieandkate.com/images/2020/11/mulled-wine-in-pot.jpg",
+      "dateAdded": "2025-01-03T21:16:59.408Z",
+      "dateModified": "2025-01-03T21:16:59.408Z"
     }
   ],
   "messages": [
