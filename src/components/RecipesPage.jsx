@@ -13,7 +13,6 @@ function RecipesPage() {
   const [selectedDifficulty, setSelectedDifficulty] = useState(""); // State for selected difficulty
   const [sortOption, setSortOption] = useState(""); // State for sort option
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-  
 
   // Fetch recipes
   useEffect(() => {
@@ -36,12 +35,15 @@ function RecipesPage() {
         sorted.sort((a, b) => new Date(a.dateAdded) - new Date(b.dateAdded));
         break;
       case "updateTime":
-        sorted.sort((a, b) => new Date(a.dateModified) - new Date(b.dateModified));
+        sorted.sort(
+          (a, b) => new Date(a.dateModified) - new Date(b.dateModified)
+        );
         break;
       case "difficulty":
         const difficultyOrder = { Easy: 1, Medium: 2, Hard: 3 };
         sorted.sort(
-          (a, b) => difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty]
+          (a, b) =>
+            difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty]
         );
         break;
       default:
@@ -52,12 +54,32 @@ function RecipesPage() {
 
   // Share selected recipes via email
   const handleShare = (selectedRecipes) => {
-    const jsonRecipes = JSON.stringify(selectedRecipes, null, 2); // Convert to JSON
-    const mailtoLink = `mailto:?subject=Shared Recipes&body=${encodeURIComponent(
-      jsonRecipes
-    )}`; // Construct mailto link
-    window.location.href = mailtoLink; // Open default mail client
+    // Convert selected recipes to JSON format
+    const jsonRecipes = JSON.stringify(selectedRecipes, null, 2); // Format the selected recipes
 
+    // Post the selected recipes to the backend
+    fetch("http://localhost:3000/recipes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: jsonRecipes,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Construct the mailto link
+        const recipeLink = "http://localhost:3000/recipes"; // Link to view the recipes
+        const bodyMessage = `I wanted to share some recipes with you:\n\n${jsonRecipes}\n\nHere is the link to view the recipes: ${recipeLink}`;
+
+        // Create a mailto link
+        const mailtoLink = `mailto:?subject=Check%20out%20these%20recipes&body=${encodeURIComponent(
+          bodyMessage
+        )}`;
+
+        // Open the default mail client
+        window.location.href = mailtoLink;
+      })
+      .catch((error) => {
+        console.error("Error sharing recipes:", error);
+      });
   };
 
   const filterAndSortRecipes = () => {
@@ -98,7 +120,6 @@ function RecipesPage() {
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
   };
-
 
   const handleCreateOrUpdate = (recipe) => {
     const method = recipe.id ? "PUT" : "POST";
@@ -148,8 +169,6 @@ function RecipesPage() {
       .catch((err) => console.error("Error deleting recipe:", err));
   };
 
-
-
   // Extract unique tags for the dropdown
   const uniqueTags = [
     ...new Set(
@@ -162,15 +181,16 @@ function RecipesPage() {
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
-  
-    const filtered = recipes.filter((recipe) =>
-      recipe.title.toLowerCase().includes(query) ||
-      recipe.description.toLowerCase().includes(query) ||
-      recipe.ingredients.some((ingredient) =>
-        ingredient.name.toLowerCase().includes(query) // Adjusted for ingredients array with `name`
-      )
+
+    const filtered = recipes.filter(
+      (recipe) =>
+        recipe.title.toLowerCase().includes(query) ||
+        recipe.description.toLowerCase().includes(query) ||
+        recipe.ingredients.some(
+          (ingredient) => ingredient.name.toLowerCase().includes(query) // Adjusted for ingredients array with `name`
+        )
     );
-  
+
     setFilteredRecipes(filtered);
   };
 
@@ -188,7 +208,7 @@ function RecipesPage() {
           placeholder="Search recipes by title, description, or ingredients"
           value={searchQuery}
           onChange={handleSearchChange}
-          />
+        />
       </div>
 
       {/* Filters */}
@@ -239,6 +259,7 @@ function RecipesPage() {
         recipes={filteredRecipes} // Pass filtered recipes here
         onEdit={setSelectedRecipe}
         onDelete={handleDelete}
+        onShare={handleShare} // Pass the share function
       />
     </div>
   );
