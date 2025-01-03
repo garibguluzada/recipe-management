@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./../RecipesPage.css";
 
-function RecipeList({ recipes, onEdit, onDelete, onShare }) {
+function RecipeList({ recipes, onEdit, onDelete, selectedTag }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [selectedRecipes, setSelectedRecipes] = useState([]);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
+  // Open modal automatically if URL contains recipe ID
   useEffect(() => {
     const recipeIdFromURL = location.pathname.split("/recipes/")[1];
     if (recipeIdFromURL && recipes.length > 0) {
@@ -14,34 +15,49 @@ function RecipeList({ recipes, onEdit, onDelete, onShare }) {
         (recipe) => recipe.id === recipeIdFromURL
       );
       if (matchedRecipe) {
-        setSelectedRecipes([matchedRecipe]);
+        setSelectedRecipe(matchedRecipe);
       }
     }
   }, [location.pathname, recipes]);
 
-  const handleCheckboxChange = (recipe) => {
-    setSelectedRecipes((prevSelected) => {
-      if (prevSelected.some((r) => r.id === recipe.id)) {
-        return prevSelected.filter((r) => r.id !== recipe.id);
-      }
-      return [...prevSelected, recipe];
-    });
+  const openModal = (recipe) => {
+    setSelectedRecipe(recipe);
+    navigate(`/recipes/${recipe.id}`); // Update the URL with the recipe ID
   };
+
+  const closeModal = () => {
+    setSelectedRecipe(null);
+    navigate("/recipes"); // Reset URL when closing modal
+  };
+
+  const truncateDescription = (description) => {
+    return description.length > 131
+      ? description.slice(0, 131) + "..."
+      : description;
+  };
+
+  const formatDate = (date) => {
+    return new Date(date).toLocaleString(); // This will return both date and time in a readable format
+  };
+
+  // Filter recipes based on the selected tag
+  const filteredRecipes = selectedTag
+    ? recipes.filter((recipe) =>
+        recipe.tags.toLowerCase().includes(selectedTag.toLowerCase())
+      )
+    : recipes; // If no tag is selected or "" (All Tags), show all recipes
 
   return (
     <div>
+      {/* Recipe Cards */}
       <div className="recipe-cards-container">
-        {recipes.map((recipe) => (
-          <div key={recipe.id} className="recipe-card">
-            <input
-              type="checkbox"
-              onChange={() => handleCheckboxChange(recipe)}
-              checked={selectedRecipes.some((r) => r.id === recipe.id)}
-            />
-            <div
-              className="recipe-card-header"
-              onClick={() => navigate(`/recipes/${recipe.id}`)}
-            >
+        {filteredRecipes.map((recipe) => (
+          <div
+            key={recipe.id}
+            className="recipe-card"
+            onClick={() => openModal(recipe)}
+          >
+            <div className="recipe-card-header">
               <h2>{recipe.title}</h2>
               {recipe.image && (
                 <img
@@ -49,15 +65,30 @@ function RecipeList({ recipes, onEdit, onDelete, onShare }) {
                   alt={recipe.title}
                   className="recipe-image"
                   onError={(e) => {
-                    e.target.style.display = "none";
+                    e.target.style.display = "none"; // Hide the image if it fails to load
                   }}
                 />
               )}
             </div>
             <div className="recipe-card-body">
-              <p><strong>Description:</strong> {recipe.description}</p>
-              <p><strong>Tags:</strong> {recipe.tags}</p>
-              <p><strong>Difficulty:</strong> {recipe.difficulty}</p>
+              <p>
+                <strong>Description:</strong>{" "}
+                {truncateDescription(recipe.description)}
+              </p>
+              <p>
+                <strong>Tags:</strong> {recipe.tags}
+              </p>
+              <p>
+                <strong>Difficulty:</strong> {recipe.difficulty}
+              </p>
+              <p>
+                <strong>Date Added:</strong> {formatDate(recipe.dateAdded)}
+              </p>
+              <p>
+                <strong>Date Modified:</strong>{" "}
+                {formatDate(recipe.dateModified)}
+              </p>
+              <div className="difficulty-line"></div>
             </div>
             <div className="recipe-card-actions">
               <button
@@ -82,13 +113,42 @@ function RecipeList({ recipes, onEdit, onDelete, onShare }) {
           </div>
         ))}
       </div>
-      {selectedRecipes.length > 0 && (
-        <button
-          className="share-button"
-          onClick={() => onShare(selectedRecipes)}
-        >
-          Share Selected Recipes
-        </button>
+
+      {/* Modal for Detailed Recipe View */}
+      {selectedRecipe && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-modal" onClick={closeModal}>
+              X
+            </button>
+            <h2>{selectedRecipe.title}</h2>
+            <p>
+              <strong>Description:</strong> {selectedRecipe.description}
+            </p>
+            <p>
+              <strong>Ingredients:</strong>
+            </p>
+            <ul>
+              {selectedRecipe.ingredients.map((ingredient) => (
+                <li key={ingredient.id}>{ingredient.name}</li>
+              ))}
+            </ul>
+            <p>
+              <strong>Steps:</strong>
+            </p>
+            <ol>
+              {selectedRecipe.steps.map((step) => (
+                <li key={step.id}>{step.description}</li>
+              ))}
+            </ol>
+            <p>
+              <strong>Tags:</strong> {selectedRecipe.tags}
+            </p>
+            <p>
+              <strong>Difficulty:</strong> {selectedRecipe.difficulty}
+            </p>
+          </div>
+        </div>
       )}
     </div>
   );
