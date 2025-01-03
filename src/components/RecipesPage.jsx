@@ -13,6 +13,7 @@ function RecipesPage() {
   const [selectedDifficulty, setSelectedDifficulty] = useState(""); // State for selected difficulty
   const [sortOption, setSortOption] = useState(""); // State for sort option
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+  
 
   // Fetch recipes
   useEffect(() => {
@@ -148,6 +149,21 @@ function RecipesPage() {
     ),
   ];
 
+  const handleSearchChange = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+  
+    const filtered = recipes.filter((recipe) =>
+      recipe.title.toLowerCase().includes(query) ||
+      recipe.description.toLowerCase().includes(query) ||
+      recipe.ingredients.some((ingredient) =>
+        ingredient.name.toLowerCase().includes(query) // Adjusted for ingredients array with `name`
+      )
+    );
+  
+    setFilteredRecipes(filtered);
+  };
+
   return (
     <div>
       <Link to="/">
@@ -161,11 +177,8 @@ function RecipesPage() {
           className="search-input"
           placeholder="Search recipes by title, description, or ingredients"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <button className="search-button" onClick={() => {}}>
-          Search
-        </button>
+          onChange={handleSearchChange}
+          />
       </div>
 
       {/* Filters */}
