@@ -31,11 +31,11 @@ function RecipeList({ recipes, onEdit, onDelete, selectedTag, onShare }) {
     navigate("/recipes"); // Reset URL when closing modal
   };
 
-  const truncateDescription = (description) => {
-    return description.length > 131
-      ? description.slice(0, 131) + "..."
-      : description;
-  };
+  function truncateDescription(description) {
+    if (typeof description !== "string") return "";
+    return description.length > 100 ? description.slice(0, 100) + "..." : description;
+}
+
 
   const formatDate = (date) => {
     return new Date(date).toLocaleString(); // This will return both date and time in a readable format
@@ -49,15 +49,20 @@ function RecipeList({ recipes, onEdit, onDelete, selectedTag, onShare }) {
     : recipes; // If no tag is selected or "" (All Tags), show all recipes
 
   if (!recipes.length) {
-    return <p className="no-recipt">No recipes found matching your search criteria.</p>;
+    return (
+      <p className="no-recipt">
+        No recipes found matching your search criteria.
+      </p>
+    );
   }
 
   const handleCheckboxChange = (recipe) => {
     setSelectedRecipes((prevSelected) => {
-      if (prevSelected.some((r) => r.id === recipe.id)) {
-        return prevSelected.filter((r) => r.id !== recipe.id);
-      }
-      return [...prevSelected, recipe];
+      const updatedSelected = prevSelected.some((r) => r.id === recipe.id)
+        ? prevSelected.filter((r) => r.id !== recipe.id)
+        : [...prevSelected, recipe];
+      console.log(updatedSelected); // Log selected recipes
+      return updatedSelected;
     });
   };
 
@@ -178,12 +183,11 @@ function RecipeList({ recipes, onEdit, onDelete, selectedTag, onShare }) {
       {selectedRecipes.length > 0 && (
         <button
           className="share-button"
-          onClick={() => onShare(selectedRecipes)}
+          onClick={() => onShare(selectedRecipes)} // Make sure `onShare` is passed down properly
         >
           Share Selected Recipes
         </button>
       )}
-      
     </div>
   );
 }
