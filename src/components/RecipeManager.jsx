@@ -40,9 +40,10 @@ function RecipeManager() {
         )
       );
     } else {
-      setRecipes([
-        ...recipes,
-        { id: Date.now().toString(), ...formData, dateAdded: currentDate, dateModified: currentDate }
+      // Add new recipe
+      setRecipes((prevRecipes) => [
+          ...prevRecipes,
+          { ...newRecipe, id: Date.now(), dateAdded: new Date(), dateModified: new Date() },
       ]);
     }
 
