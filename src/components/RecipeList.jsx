@@ -47,6 +47,10 @@ function RecipeList({ recipes, onEdit, onDelete, selectedTag }) {
       )
     : recipes; // If no tag is selected or "" (All Tags), show all recipes
 
+  if (!recipes.length) {
+    return <p>No recipes found matching your search criteria.</p>;
+  }
+
   return (
     <div>
       {/* Recipe Cards */}
