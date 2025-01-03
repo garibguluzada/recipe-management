@@ -57,6 +57,7 @@ function RecipesPage() {
       jsonRecipes
     )}`; // Construct mailto link
     window.location.href = mailtoLink; // Open default mail client
+
   };
 
   const filterAndSortRecipes = () => {
@@ -238,7 +239,6 @@ function RecipesPage() {
         recipes={filteredRecipes} // Pass filtered recipes here
         onEdit={setSelectedRecipe}
         onDelete={handleDelete}
-        onShare={handleShare}
       />
     </div>
   );
