@@ -64,8 +64,6 @@ function RecipeList({ recipes, onEdit, onDelete, selectedTag, onShare }) {
   const handleCheckboxClick = (e) => {
     e.stopPropagation(); // Prevent the modal from opening when the checkbox is clicked
   };
-  
-  };
 
   return (
     <div>
