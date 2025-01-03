@@ -55,31 +55,17 @@ function RecipesPage() {
   // Share selected recipes via email
   const handleShare = (selectedRecipes) => {
     // Convert selected recipes to JSON format
-    const jsonRecipes = JSON.stringify(selectedRecipes, null, 2); // Format the selected recipes
+    const jsonRecipes = JSON.stringify(selectedRecipes, null, 2);
 
-    // Post the selected recipes to the backend
-    fetch("http://localhost:3000/recipes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: jsonRecipes,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Construct the mailto link
-        const recipeLink = "http://localhost:3000/recipes"; // Link to view the recipes
-        const bodyMessage = `I wanted to share some recipes with you:\n\n${jsonRecipes}\n\nHere is the link to view the recipes: ${recipeLink}`;
+    // Construct the mailto link
+    const recipeLink = "http://localhost:3000/recipes";
+    const bodyMessage = `I wanted to share some recipes with you:\n\n${jsonRecipes}\n\nHere is the link to view the recipes: ${recipeLink}`;
 
-        // Create a mailto link
-        const mailtoLink = `mailto:?subject=Check%20out%20these%20recipes&body=${encodeURIComponent(
-          bodyMessage
-        )}`;
+    const mailtoLink = `mailto:?subject=Check%20out%20these%20recipes&body=${encodeURIComponent(
+      bodyMessage
+    )}`;
 
-        // Open the default mail client
-        window.location.href = mailtoLink;
-      })
-      .catch((error) => {
-        console.error("Error sharing recipes:", error);
-      });
+    window.location.href = mailtoLink;
   };
 
   const filterAndSortRecipes = () => {
@@ -173,7 +159,7 @@ function RecipesPage() {
   const uniqueTags = [
     ...new Set(
       recipes.flatMap((recipe) =>
-        recipe.tags.split(", ").map((tag) => tag.trim())
+        (recipe.tags || "").split(", ").map((tag) => tag.trim())
       )
     ),
   ];
@@ -186,8 +172,8 @@ function RecipesPage() {
       (recipe) =>
         recipe.title.toLowerCase().includes(query) ||
         recipe.description.toLowerCase().includes(query) ||
-        recipe.ingredients.some(
-          (ingredient) => ingredient.name.toLowerCase().includes(query) // Adjusted for ingredients array with `name`
+        recipe.ingredients?.some((ingredient) =>
+          ingredient.name?.toLowerCase().includes(query)
         )
     );
 
