@@ -50,6 +50,16 @@ function RecipesPage() {
     return sorted;
   };
 
+  // Share selected recipes via email
+  const handleShare = (selectedRecipes) => {
+    const jsonRecipes = JSON.stringify(selectedRecipes, null, 2); // Convert to JSON
+    const mailtoLink = `mailto:?subject=Shared Recipes&body=${encodeURIComponent(
+      jsonRecipes
+    )}`; // Construct mailto link
+    window.location.href = mailtoLink; // Open default mail client
+
+  };
+
   const filterAndSortRecipes = () => {
     let filtered = [...recipes];
 

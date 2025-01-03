@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./../RecipesPage.css";
 
-function RecipeList({ recipes, onEdit, onDelete, selectedTag }) {
+function RecipeList({ recipes, onEdit, onDelete, selectedTag, onShare }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [selectedRecipes, setSelectedRecipes] = useState([]); // Initialize selectedRecipes state
 
   // Open modal automatically if URL contains recipe ID
   useEffect(() => {
@@ -48,8 +49,23 @@ function RecipeList({ recipes, onEdit, onDelete, selectedTag }) {
     : recipes; // If no tag is selected or "" (All Tags), show all recipes
 
   if (!recipes.length) {
-    return <p>No recipes found matching your search criteria.</p>;
+    return <p className="no-recipt">No recipes found matching your search criteria.</p>;
   }
+
+  const handleCheckboxChange = (recipe) => {
+    setSelectedRecipes((prevSelected) => {
+      if (prevSelected.some((r) => r.id === recipe.id)) {
+        return prevSelected.filter((r) => r.id !== recipe.id);
+      }
+      return [...prevSelected, recipe];
+    });
+  };
+
+  const handleCheckboxClick = (e) => {
+    e.stopPropagation(); // Prevent the modal from opening when the checkbox is clicked
+  };
+  
+  };
 
   return (
     <div>
@@ -61,6 +77,12 @@ function RecipeList({ recipes, onEdit, onDelete, selectedTag }) {
             className="recipe-card"
             onClick={() => openModal(recipe)}
           >
+            <input
+              type="checkbox"
+              onClick={handleCheckboxClick} // Stop event propagation here
+              onChange={() => handleCheckboxChange(recipe)}
+              checked={selectedRecipes.some((r) => r.id === recipe.id)}
+            />
             <div className="recipe-card-header">
               <h2>{recipe.title}</h2>
               {recipe.image && (
@@ -154,6 +176,16 @@ function RecipeList({ recipes, onEdit, onDelete, selectedTag }) {
           </div>
         </div>
       )}
+
+      {selectedRecipes.length > 0 && (
+        <button
+          className="share-button"
+          onClick={() => onShare(selectedRecipes)}
+        >
+          Share Selected Recipes
+        </button>
+      )}
+      
     </div>
   );
 }
