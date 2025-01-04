@@ -6,7 +6,7 @@ import RecipeList from "./RecipeList";
 import "./../RecipesPage.css";
 import { v4 as uuidv4 } from "uuid";
 import Pagination from "./Pagination"; // Import a Pagination component
-
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 function RecipesPage() {
   const [recipes, setRecipes] = useState([]);
@@ -20,8 +20,6 @@ function RecipesPage() {
   const recipesPerPage = 8;
   const location = useLocation();
   const { recipeId } = location.state || {}; // Extract recipeId from the navigation state
-
-  
 
   // Fetch recipes
   useEffect(() => {
@@ -76,10 +74,7 @@ function RecipesPage() {
 
   // Share selected recipes via email
   const handleShare = (selectedRecipes) => {
-    // Convert selected recipes to JSON format
     const jsonRecipes = JSON.stringify(selectedRecipes, null, 2);
-
-    // Construct the mailto link
     const recipeLink = "http://localhost:3000/recipes";
     const bodyMessage = `I wanted to share some recipes with you:\n\n${jsonRecipes}\n\nHere is the link to view the recipes: ${recipeLink}`;
 
@@ -164,6 +159,7 @@ function RecipesPage() {
       })
       .catch((err) => console.error("Error saving recipe:", err));
   };
+
   const handleDelete = (id) => {
     fetch(`http://localhost:3000/recipes/${id}`, { method: "DELETE" })
       .then(() => {
@@ -202,15 +198,45 @@ function RecipesPage() {
     setFilteredRecipes(filtered);
   };
 
-
+  // Pagination
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = filteredRecipes.slice(
     indexOfFirstRecipe,
     indexOfLastRecipe
   );
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // ** Drag & Drop: handle reordering in memory and patch 'order' back to server if desired **
+  const handleDragEnd = async (result) => {
+    if (!result.destination) return;
+
+    // Reorder the array of currently filtered recipes
+    const updated = Array.from(filteredRecipes);
+    const [moved] = updated.splice(result.source.index, 1);
+    updated.splice(result.destination.index, 0, moved);
+
+    // Update local state so the UI changes
+    setFilteredRecipes(updated);
+    setRecipes(updated);
+
+    // Optionally persist the new order to server by PATCHing an 'order' field
+    try {
+      // Assign new 'order' indexes
+      for (let i = 0; i < updated.length; i++) {
+        const r = updated[i];
+        // Just patch 'order' = i
+        await fetch(`http://localhost:3000/recipes/${r.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ order: i }),
+        });
+      }
+      console.log("Drag-and-drop order saved to server");
+    } catch (error) {
+      console.error("Error saving drag-drop order:", error);
+    }
+  };
 
   return (
     <div>
@@ -269,16 +295,26 @@ function RecipesPage() {
         </select>
       </div>
 
-      <RecipeForm
-        onSubmit={handleCreateOrUpdate}
-        selectedRecipe={selectedRecipe}
-      />
-      <RecipeList
-        recipes={currentRecipes} // Pass filtered recipes here
-        onEdit={setSelectedRecipe}
-        onDelete={handleDelete}
-        onShare={handleShare} // Pass the share function
-      />
+      <RecipeForm onSubmit={handleCreateOrUpdate} selectedRecipe={selectedRecipe} />
+
+      {/* Wrap RecipeList in DragDropContext + Droppable */}
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="droppable-recipes" direction="horizontal">
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {/* Pass currentRecipes (the paginated ones) into RecipeList */}
+              <RecipeList
+                recipes={currentRecipes}
+                onEdit={setSelectedRecipe}
+                onDelete={handleDelete}
+                onShare={handleShare}
+              />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+
       <Pagination
         recipesPerPage={recipesPerPage}
         totalRecipes={filteredRecipes.length}

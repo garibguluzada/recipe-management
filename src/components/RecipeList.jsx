@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./../RecipesPage.css";
 
+// ** Import Draggable from react-beautiful-dnd **
+import { Draggable } from "react-beautiful-dnd";
+
 function RecipeList({ recipes, onEdit, onDelete, selectedTag, onShare }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,9 +36,10 @@ function RecipeList({ recipes, onEdit, onDelete, selectedTag, onShare }) {
 
   function truncateDescription(description) {
     if (typeof description !== "string") return "";
-    return description.length > 100 ? description.slice(0, 100) + "..." : description;
-}
-
+    return description.length > 100
+      ? description.slice(0, 100) + "..."
+      : description;
+  }
 
   const formatDate = (date) => {
     return new Date(date).toLocaleString(); // This will return both date and time in a readable format
@@ -74,72 +78,79 @@ function RecipeList({ recipes, onEdit, onDelete, selectedTag, onShare }) {
     <div>
       {/* Recipe Cards */}
       <div className="recipe-cards-container">
-        {filteredRecipes.map((recipe) => (
-          <div
-            key={recipe.id}
-            className="recipe-card"
-            onClick={() => openModal(recipe)}
-          >
-            <input
-              type="checkbox"
-              onClick={handleCheckboxClick} // Stop event propagation here
-              onChange={() => handleCheckboxChange(recipe)}
-              checked={selectedRecipes.some((r) => r.id === recipe.id)}
-            />
-            <div className="recipe-card-header">
-              <h2>{recipe.title}</h2>
-              {recipe.image && (
-                <img
-                  src={recipe.image}
-                  alt={recipe.title}
-                  className="recipe-image"
-                  onError={(e) => {
-                    e.target.style.display = "none"; // Hide the image if it fails to load
-                  }}
+        {filteredRecipes.map((recipe, index) => (
+          // Wrap each card in Draggable
+          <Draggable key={recipe.id} draggableId={recipe.id} index={index}>
+            {(provided) => (
+              <div
+                className="recipe-card"
+                onClick={() => openModal(recipe)}
+                ref={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+              >
+                <input
+                  type="checkbox"
+                  onClick={handleCheckboxClick} // Stop event propagation here
+                  onChange={() => handleCheckboxChange(recipe)}
+                  checked={selectedRecipes.some((r) => r.id === recipe.id)}
                 />
-              )}
-            </div>
-            <div className="recipe-card-body">
-              <p>
-                <strong>Description:</strong>{" "}
-                {truncateDescription(recipe.description)}
-              </p>
-              <p>
-                <strong>Tags:</strong> {recipe.tags}
-              </p>
-              <p>
-                <strong>Difficulty:</strong> {recipe.difficulty}
-              </p>
-              <p>
-                <strong>Date Added:</strong> {formatDate(recipe.dateAdded)}
-              </p>
-              <p>
-                <strong>Date Modified:</strong>{" "}
-                {formatDate(recipe.dateModified)}
-              </p>
-              <div className="difficulty-line"></div>
-            </div>
-            <div className="recipe-card-actions">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEdit(recipe);
-                }}
-                className="edit-button"
-              >
-                Edit
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onDelete(recipe.id);
-                }}
-                className="delete-button"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
+                <div className="recipe-card-header">
+                  <h2>{recipe.title}</h2>
+                  {recipe.image && (
+                    <img
+                      src={recipe.image}
+                      alt={recipe.title}
+                      className="recipe-image"
+                      onError={(e) => {
+                        e.target.style.display = "none"; // Hide the image if it fails to load
+                      }}
+                    />
+                  )}
+                </div>
+                <div className="recipe-card-body">
+                  <p>
+                    <strong>Description:</strong>{" "}
+                    {truncateDescription(recipe.description)}
+                  </p>
+                  <p>
+                    <strong>Tags:</strong> {recipe.tags}
+                  </p>
+                  <p>
+                    <strong>Difficulty:</strong> {recipe.difficulty}
+                  </p>
+                  <p>
+                    <strong>Date Added:</strong> {formatDate(recipe.dateAdded)}
+                  </p>
+                  <p>
+                    <strong>Date Modified:</strong>{" "}
+                    {formatDate(recipe.dateModified)}
+                  </p>
+                  <div className="difficulty-line"></div>
+                </div>
+                <div className="recipe-card-actions">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onEdit(recipe);
+                    }}
+                    className="edit-button"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDelete(recipe.id);
+                    }}
+                    className="delete-button"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            )}
+          </Draggable>
         ))}
       </div>
 
@@ -183,7 +194,7 @@ function RecipeList({ recipes, onEdit, onDelete, selectedTag, onShare }) {
       {selectedRecipes.length > 0 && (
         <button
           className="share-button"
-          onClick={() => onShare(selectedRecipes)} // Make sure `onShare` is passed down properly
+          onClick={() => onShare(selectedRecipes)}
         >
           Share Selected Recipes
         </button>

@@ -64,7 +64,7 @@ function MainPage() {
     },
     {
       name: "Projects of Ulkar Ahmadli",
-      description: "All Projects during Web&Mobile I",
+      description: "All Projects during Web & Mobile I",
       link: "https://github.com/uahmadli17458/Personal-Webpage",
     }
   ];
@@ -85,7 +85,7 @@ function MainPage() {
         <h2>Featured Recipes</h2>
         <Slider {...sliderSettings}>
           {recipes.map((recipe) => (
-            <div key={recipe.id} style={{ padding: "10px" }}>
+            <div key={recipe.id}>
               <div
                 onClick={() => openRecipe(recipe.id)}
                 style={{

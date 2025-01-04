@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background-image: url('/Main.jpg'); /* Path to the background */
+    background-image: url('/Main.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* Keeps the background fixed while scrolling */
@@ -104,4 +104,16 @@ p {
 .slider-section h2 {
     color: #333;
     margin-bottom: 20px;
+}
+
+.slick-slide {
+    padding: 0 10px;
+}
+  
+.slick-list {
+    margin: 0 -10px;
+}
+
+.top-section .button + .button {
+    margin-left: 20px;
 }
