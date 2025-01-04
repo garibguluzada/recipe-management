@@ -1,0 +1,242 @@
+/* Recipe card container */
+.recipe-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Styling for individual recipe cards */
+.recipe-card {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  position: relative; /* Needed for positioning buttons */
+}
+
+.recipe-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Recipe title styling */
+.recipe-card-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Image styling */
+.recipe-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: block;
+  max-height: 200px; /* Limit the image height */
+}
+
+/* Recipe description and details */
+.recipe-card-body p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Add space and line before action buttons */
+.recipe-card-body .difficulty-line {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  border-top: 1px solid #ddd;
+}
+
+/* Modal (Popup) styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  max-height: 80vh; /* Restrict to 80% of the viewport height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+  position: absolute; /* Use absolute to position inside the overlay */
+  top: 50%;
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center both horizontally and vertically */
+}
+
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Recipe details in modal */
+.modal-content p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* Position action buttons absolutely within the card */
+.recipe-card-actions {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Show buttons on hover */
+.recipe-card:hover .recipe-card-actions {
+  opacity: 1; /* Fully visible on hover */
+}
+
+/* Button styling */
+.edit-button,
+.delete-button {
+  padding: 5px 10px;
+  font-size: 14px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #4CAF50; /* Green for edit */
+}
+
+.delete-button {
+  background-color: #dc3545; /* Red for delete */
+}
+
+/* Add hover effects for buttons */
+.edit-button:hover {
+  background-color: #45a049;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+.button {
+  margin-top: 20px;
+  background-color: #ff7f50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #e76f43;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.search-input {
+  padding: 10px;
+  width: 60%;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-button {
+  padding: 10px 15px;
+  margin-left: 10px;
+  font-size: 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #218838;
+}
+/* Filter Container */
+.filter-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 15px;
+}
+
+.filter-dropdown {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: linear-gradient(to bottom right, #ffffff, #f9f9f9);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+}
+
+.filter-dropdown:focus,
+.filter-dropdown:hover {
+  outline: none;
+  background: #ffffff;
+  box-shadow: 0 0 5px #f08a24;
+  border: 1px solid #f08a24;
+}
+
+.share-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.no-recipt {
+  color: #e76f43;
+  text-align: center;
+  background-color: #fff5e5;
+  border-radius: 10px;
+}
