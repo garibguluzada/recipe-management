@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom"; // Import useLocation
 import { Link } from "react-router-dom";
 import RecipeForm from "./RecipeForm";
 import RecipeList from "./RecipeList";
@@ -17,6 +18,9 @@ function RecipesPage() {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const recipesPerPage = 8;
+  const location = useLocation();
+  const { recipeId } = location.state || {}; // Extract recipeId from the navigation state
+
   
 
   // Fetch recipes
@@ -29,6 +33,19 @@ function RecipesPage() {
       })
       .catch((err) => console.error("Failed to fetch recipes:", err));
   }, []);
+
+  useEffect(() => {
+    if (recipeId) {
+      // Find the index of the recipe with the given ID
+      const recipeIndex = recipes.findIndex((recipe) => recipe.id === recipeId);
+
+      if (recipeIndex !== -1) {
+        // Calculate the page number containing the recipe
+        const pageNumber = Math.ceil((recipeIndex + 1) / recipesPerPage);
+        setCurrentPage(pageNumber);
+      }
+    }
+  }, [recipeId, recipes]);
 
   const sortRecipes = (recipesToSort) => {
     const sorted = [...recipesToSort];

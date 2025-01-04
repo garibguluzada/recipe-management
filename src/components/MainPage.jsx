@@ -9,6 +9,7 @@ function MainPage() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     fetch("http://localhost:3000/recipes")
@@ -29,7 +30,7 @@ function MainPage() {
   }, []);
 
   const openRecipe = (id) => {
-    navigate(`/recipes/${id}`, { state: { fromMainPage: true } }); // Navigate to the recipe page with a flag
+    navigate(`/recipes/${id}`, { state: { fromMainPage: true, recipeId: id } });
   };
 
   const sliderSettings = {
@@ -57,20 +58,15 @@ function MainPage() {
       link: "https://github.com/IsmayilovRufat/as1-chrome-extension.git",
     },
     {
-      name: "Project 2",
-      description: "Description 2",
-      link: "",
+      name: "Portfolio of Garib Guluzada",
+      description: "Personal Website of a Team Member",
+      link: "https://github.com/garibguluzada/MyPortfolio",
     },
     {
-      name: "Project 3",
-      description: "Description 3",
-      link: "",
-    },
-    {
-      name: "Project 4",
-      description: "Description 4",
-      link: "",
-    },
+      name: "Projects of Ulkar Ahmadli",
+      description: "All Projects during Web&Mobile I",
+      link: "https://github.com/uahmadli17458/Personal-Webpage",
+    }
   ];
 
   return (
