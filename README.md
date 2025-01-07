@@ -38,7 +38,7 @@ Follow these steps to set up and run the Recipe Management Website:
 ### 7. Open the Application in a Browser
 - Open your web browser and go to:
   ```
-  http://localhost:5174
+  http://localhost:5173
   ```
 
 You should now see the Recipe Management Project running in your browser!
